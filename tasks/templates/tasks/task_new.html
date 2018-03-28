@@ -1,0 +1,15 @@
+{% extends 'tasks/base.html' %}
+
+
+{% load static %}
+
+
+{% block tasks %}
+    <div class="container">
+            <form action="{% url 'tasks:new' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit">
+            </form>
+        </div>
+{% endblock %}
