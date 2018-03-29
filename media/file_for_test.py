@@ -1,7 +1,7 @@
 import sys
 
-if len(sys.argv)>1:
+if len(sys.argv) > 1:
     n = int(sys.argv[1])
-    print((n // 60) % 24, n % 60)
+    print('{}{}' . format((n // 60) % 24, n % 60))
 else:
-    print('err')
+    print(sys.argv)

@@ -41,9 +41,12 @@ def test_code(task_id):
                 for item in case.get_input_items():
                     input_data += '{}\n'.format(item.value)
                 sandbox.add_files(task.file.file.name)
-                code_output = sandbox.run_command(['python', task.file.name],
-                                                  timeout=100,
-                                                  input_data=input_data)
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                # code_output = sandbox.run_command(['python', task.file.name],
+                #                                   timeout=100,
+                #                                   input_data=input_data)
+                code_output = sandbox.run_command(['python3', task.file.name, input_data],
+                                                  timeout=100)
                 code_errors = code_output.stderr.read().decode()
                 # check for code errors
                 if code_errors:
