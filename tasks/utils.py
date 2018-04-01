@@ -38,8 +38,8 @@ def test_code(task_id):
         with Sandbox() as sandbox:
             for num, case in enumerate(task.cases.all(), start=1):
                 input_data = ''
-                for item in case.get_input_items():
-                    input_data += '{}\n'.format(item.value)
+                for item in case.get_items():
+                    input_data += '{}\n'.format(item.input)
                 sandbox.add_files(task.file.file.name)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 # code_output = sandbox.run_command(['python', task.file.name],
@@ -57,8 +57,8 @@ def test_code(task_id):
                     code_output = code_output.stdout.read().decode().split('\n')
                     code_output = [x for x in code_output if x]
                     expected_output = []
-                    for item in case.get_output_items():
-                        expected_output.append(item.value)
+                    for item in case.get_items():
+                        expected_output.append(item.output)
                     if code_output != expected_output:
                         valid = False
                         code_output = ''.join(code_output)

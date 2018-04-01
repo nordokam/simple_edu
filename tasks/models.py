@@ -50,24 +50,17 @@ class TestCase(models.Model):
     def __str__(self):
         return self.title
 
-    def get_input_items(self):
-        return self.items.filter(is_input=True)
-
-    def get_output_items(self):
-        return self.items.filter(is_input=False)
-
+    def get_items(self):
+        return self.items.all()
 
 
 class TestInOut(models.Model):
-    value = models.CharField(max_length=255)
+    input = models.CharField(max_length=255)
+    output = models.CharField(max_length=255)
     test_case = models.ForeignKey(TestCase, on_delete=models.CASCADE,
                                   verbose_name='Входные/выходные данные',
                                   related_name='items')
-    is_input = models.BooleanField(default=True)
 
     def __str__(self):
-        if self.is_input:
-            return '{}{}'.format('input:', self.value)
-        else:
-            return '{}{}'.format('output:', self.value)
+        return '{} - {}'.format(self.input, self.output)
 
