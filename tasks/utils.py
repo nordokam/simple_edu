@@ -12,7 +12,7 @@ def check_code(file_path):
     valid = False
     errors = []
     if all([Path(file_path).exists(), Path(file_path).is_file(),
-            file_path.endswith('.py')]):
+                file_path.endswith('.py')]):
         style_guide = flake8.get_style_guide(ignore=['E24', 'W503'])
         report = style_guide.check_files([file_path])
         errors = report.get_statistics('')
@@ -21,12 +21,13 @@ def check_code(file_path):
     return errors, valid
 
 
-def test_code(task_id):
+def test_code(task_id, file_path, file_name):
     """
     Testing code in docker container
     :param task_id: Task id
     :return: list of errors and valid/invalid
     """
+
     errors = []
     valid = True
     try:
@@ -40,12 +41,8 @@ def test_code(task_id):
                 input_data = ''
                 for item in case.get_items():
                     input_data += '{}\n'.format(item.input)
-                sandbox.add_files(task.file.file.name)
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                # code_output = sandbox.run_command(['python', task.file.name],
-                #                                   timeout=100,
-                #                                   input_data=input_data)
-                code_output = sandbox.run_command(['python3', task.file.name, input_data],
+                sandbox.add_files('/app/media/file_for_test.py')
+                code_output = sandbox.run_command(['python3', file_name, input_data],
                                                   timeout=100)
                 code_errors = code_output.stderr.read().decode()
                 # check for code errors

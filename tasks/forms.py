@@ -12,7 +12,7 @@ class UploadFileForm(ModelForm):
         fields = ['title', 'description', 'file']
 
 
-class UrlForm(Form):
+class GitHubTakeFileForm(Form):
     # # arg=''
     # def __init__(self, *args, **kwargs):
     #     # if kwargs['arguu']:

@@ -4,12 +4,19 @@
     {% for task in tasks %}
         {% if lesson.id == task.lesson.id%}
         <h3>{{ task.title }}</h3>
-            <form action="/" method="post">
+            <form action="/file_from_github" method="post">
                 {% csrf_token %}
                 {{ form }}
-                <input type="hidden" name="task_id" value={{ task.id}}>
+                <input type="hidden" name="task_id" value={{task.id}}>
                 <input type="submit" value="Submit" />
             </form>
+
+            <form method="post" enctype="multipart/form-data" action="/file_from_pc">
+                {% csrf_token %}
+                <input type="file" name="myfile">
+                <input type="hidden" name="task_i" value={{task.id}}>
+                <button type="submit">Upload</button>
+          </form>
         {% endif %}
     {% endfor %}
 {% endfor %}
